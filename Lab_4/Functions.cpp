@@ -91,3 +91,36 @@ cv::Mat detectMarkings(const cv::Mat img)
     overlay.setTo(cv::Scalar(0, 0, 255), detectedMarkings);
     return overlay;
 }
+cv::Mat medianFilter(cv::Mat img)
+{
+    cv::medianBlur(img, img, 5);
+    return img;
+}
+
+cv::Mat detectCircle(cv::Mat img){
+    // Convert the image to grayscale
+    cv::Mat gray = bgr2gray(img);
+    // Apply median filter
+    cv::Mat blur = medianFilter(gray);
+    // Apply Hough Circle Transform
+    std::vector<cv::Vec3f> circles;
+    HoughCircles(gray, circles, cv::HOUGH_GRADIENT, 1,
+                 20,
+                 300, 20, 1, 30
+    );
+
+    std::cout << "Number of circles detected: " << circles.size() << std::endl;
+    // Draw the circles
+    for( size_t i = 0; i < circles.size(); i++ )
+    {
+        cv::Vec3i c = circles[i];
+        cv::Point center = cv::Point(c[0], c[1]);
+// circle center
+        circle( img, center, 1, cv::Scalar(0,255,255), 4, cv::LINE_AA);
+// circle outline
+        int radius = c[2];
+        circle( img, center, radius, cv::Scalar(0,255,255), 3, cv::LINE_AA);
+    }
+
+    return img;
+}
