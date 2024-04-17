@@ -20,7 +20,7 @@ int main(int argc, char** argv ) {
     cv::Mat app1 = task2App1(image);
     ShowImage(app1, "App1 Result");
     cv::Mat app2 = KMeans(image, 3);
-    ShowImage(app2, "App2 Result");
+    ShowImage(app2, "KMeans Result");
 
 
     // Wait for a key press
