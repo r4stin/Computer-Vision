@@ -11,3 +11,5 @@ Lab 4 - Edge and line detection
 Lab 5 - Segmentation
 
 Lab 6 - Image matching
+
+Lab 7 - Image stitching
